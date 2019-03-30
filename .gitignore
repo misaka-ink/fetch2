@@ -56,6 +56,11 @@ typings/
 
 # dotenv environment variables file
 .env
+.idea/
+.DS_Store
 
 # next.js build output
 .next
+
+# test
+test/temp/
