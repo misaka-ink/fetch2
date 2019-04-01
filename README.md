@@ -8,3 +8,9 @@ Fetch-based front-end middleware development model
 - request prefix
 
 - cancel request
+
+## Todo
+
+- test a prefixed path
+
+- with middlewares
