@@ -4,15 +4,18 @@
  */
 
 const os = require('os')
+const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
-
 const commonConf = require('./webpack.common.js')
-const extensions = require('./extensions')
 
+// plugins
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
+// conf
 const PORT = 8080
+const currentPaht = process.cwd()
+const packageInfo = require(path.join(currentPaht, 'package.json'))
 
 let IPv4
 for (let i = 0; i < os.networkInterfaces().en0.length; i++) {
@@ -25,7 +28,7 @@ module.exports = merge(
     commonConf, {
         mode: 'development',
         devServer: {
-            contentBase: extensions.commonPath.buildPath,
+            contentBase: path.join(currentPaht, 'build'),
             compress: true,
             host: '0.0.0.0',
             public: `${IPv4}:${PORT}`,
@@ -35,7 +38,7 @@ module.exports = merge(
         plugins: [
             new webpack.HotModuleReplacementPlugin(),
             new HtmlWebpackPlugin({
-                title: extensions.packageInfo.projectName,
+                title: packageInfo.name || '',
                 meta: {
                     viewport: 'width=device-width, initial-scale=1, maximum-scale=1,'
                     + ' user-scalable=no, shrink-to-fit=no, viewport-fit=cover'

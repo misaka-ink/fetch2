@@ -3,15 +3,13 @@
  * Created by Xinyi on 2019/2/12.
  */
 
-const extensions = require('./extensions')
-
 module.exports = {
-    entry: extensions.packageInfo.entry,
+    entry: './lib/index.js',
     module: {
         rules: [
             {
                 test: /\.jsx?$/,
-                exclude: extensions.commonPath.modulesPathMatch,
+                exclude: /node_modules/,
                 loader: 'babel-loader'
             }
         ]
