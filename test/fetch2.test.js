@@ -74,7 +74,7 @@ describe('Fetch2', () => {
     })
 
     test('initiate a post request with a file', async () => {
-        const img = await fs.readFileSync('./test/temp/demo.png', {encoding: 'binary'})
+        const img = await fs.readFileSync('./test/demo.png', {encoding: 'binary'})
 
         try {
             const result = await f2.request('http://localhost:3000/upload', {
