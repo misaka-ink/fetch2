@@ -2,7 +2,7 @@
     "name": "@misaka.ink/fetch2",
     "version": "1.0.0",
     "description": "Fetch-based front-end middleware development model",
-    "main": "dist/webpack-numbers.js",
+    "main": "dist/fetch2.js",
     "scripts": {
         "start": "webpack-dev-server --colors --open --progress --config ./scripts/webpack.dev.js",
         "build": "./node_modules/.bin/webpack --colors --progress --config ./scripts/webpack.prod.js",
@@ -13,7 +13,8 @@
         "url": "git+https://github.com/misaka-ink/fetch2.git"
     },
     "keywords": [
-        "fetch"
+        "fetch",
+        "middleware"
     ],
     "author": "Xinyi",
     "license": "MIT",

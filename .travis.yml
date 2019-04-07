@@ -1,0 +1,7 @@
+dist: trusty
+language: node_js
+node_js: v10
+install:
+    - npm i
+script:
+    - npm test
