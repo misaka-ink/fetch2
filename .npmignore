@@ -14,9 +14,9 @@ npm-debug.log
 .idea/
 node_nodules/
 test/
+scripts/
 .editorconfig
 .gitignore
 .npmignore
 .travis.yml
 package-lock.json
-scripts/
