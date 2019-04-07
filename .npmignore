@@ -19,3 +19,4 @@ test/
 .npmignore
 .travis.yml
 package-lock.json
+scripts/
