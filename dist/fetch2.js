@@ -3243,6 +3243,7 @@ function Context(_ref) {
   this._request = request;
   this._headers = headers;
   this._controller = controller;
+  this._options = opts;
 };
 
 
@@ -3362,8 +3363,6 @@ function () {
 
       return fetch;
     }(function () {
-      var _this2 = this;
-
       return function (ctx) {
         var f = fetch(ctx._request).then(function (response) {
           ctx._response = response;
@@ -3384,13 +3383,13 @@ function () {
           return result;
         });
 
-        if (_this2.options.timeout) {
+        if (ctx._options.timeout) {
           return promise_default.a.race([f, new promise_default.a(function (resolve, reject) {
             return setTimeout(function () {
               ctx._controller.abort();
 
               reject('request timeout');
-            }, _this2.options.timeout);
+            }, ctx._options.timeout);
           })]);
         } else return f;
       };
