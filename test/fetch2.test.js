@@ -84,7 +84,8 @@ describe('Fetch2', () => {
                 method: method.POST,
                 headers: {
                     'Content-Type': 'multipart/form-data'
-                }
+                },
+                timeout: 5000
             })
 
             return result
