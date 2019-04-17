@@ -7,6 +7,7 @@ const fs = require('fs')
 
 import app from './server'
 import fetch2, {method} from '../lib'
+
 const f2 = fetch2.getInstance()
 
 let server
@@ -30,18 +31,30 @@ describe('Fetch2', () => {
 
             const result = await f2.request('http://localhost:3000/get')
             return expect(result).toEqual(test)
-        }
-        catch (e) {
+        } catch (e) {
             throw e
         }
     })
 
-    test('initiate a get request to return timeout', async () => {
+    test('get request return timeout', async () => {
         try {
             const result = await f2.request('http://localhost:3000/timeout')
-        }
-        catch (e) {
+        } catch (e) {
             return expect(e.message).toEqual('request timeout')
+        }
+    })
+
+    test('abort request after 2 seconds', async () => {
+        try {
+            const controller = new AbortController()
+            setTimeout(() => {
+                controller.abort()
+            }, 2000)
+            const result = await f2.request('http://localhost:3000/timeout', null, {
+                controller
+            })
+        } catch (e) {
+            return !expect(e.message).toEqual('Aborted')
         }
     })
 
@@ -53,8 +66,7 @@ describe('Fetch2', () => {
 
             const result = await f2.request('http://localhost:3000/get', test)
             return expect(result).toEqual(test)
-        }
-        catch (e) {
+        } catch (e) {
             throw e
         }
     })
@@ -89,8 +101,7 @@ describe('Fetch2', () => {
             })
 
             return result
-        }
-        catch (e) {
+        } catch (e) {
             throw e
         }
     })
@@ -100,8 +111,7 @@ describe('Fetch2', () => {
             return await f2.request('http://localhost:3000/put', {}, {
                 method: method.PUT
             })
-        }
-        catch (e) {
+        } catch (e) {
             throw e
         }
     })
@@ -111,8 +121,7 @@ describe('Fetch2', () => {
             return await f2.request('http://localhost:3000/delete', {}, {
                 method: method.DELETE
             })
-        }
-        catch (e) {
+        } catch (e) {
             throw e
         }
     })
