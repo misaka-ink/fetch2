@@ -125,4 +125,17 @@ describe('Fetch2', () => {
             throw e
         }
     })
+
+    test('retury 2 requests', async () => {
+        const count = 2
+        try {
+            const result =  await f2.request('http://localhost:3000/404', {}, {
+                count
+            })
+        }
+        catch (e) {
+            console.log(e.message.split('|'))
+            return expect(e.message.split('|').length).toEqual(count)
+        }
+    })
 })
