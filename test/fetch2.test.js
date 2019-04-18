@@ -8,7 +8,11 @@ const fs = require('fs')
 import app from './server'
 import fetch2, {method} from '../lib'
 
-const f2 = fetch2.getInstance()
+const f2 = fetch2.getInstance({
+    params: () => {
+        return {t: Date.now()}
+    }
+})
 
 let server
 
@@ -25,12 +29,8 @@ afterAll(async done => {
 describe('Fetch2', () => {
     test('initiate a get request', async () => {
         try {
-            const test = {
-                msg: 'Hello World!'
-            }
-
             const result = await f2.request('http://localhost:3000/get')
-            return expect(result).toEqual(test)
+            return expect(!!result.t).toBe(true)
         } catch (e) {
             throw e
         }
@@ -65,7 +65,7 @@ describe('Fetch2', () => {
             }
 
             const result = await f2.request('http://localhost:3000/get', test)
-            return expect(result).toEqual(test)
+            return expect(result.msg).toEqual(test.msg)
         } catch (e) {
             throw e
         }
@@ -126,7 +126,7 @@ describe('Fetch2', () => {
         }
     })
 
-    test('retury 2 requests', async () => {
+    test('retry 2 requests', async () => {
         const count = 2
         try {
             const result =  await f2.request('http://localhost:3000/404', {}, {
@@ -134,8 +134,12 @@ describe('Fetch2', () => {
             })
         }
         catch (e) {
-            console.log(e.message.split('|'))
             return expect(e.message.split('|').length).toEqual(count)
         }
+    })
+
+    test('apply default parameters', async () => {
+        const result = await f2.request('http://localhost:3000/get')
+        return expect(!!result.t).toBe(true)
     })
 })
