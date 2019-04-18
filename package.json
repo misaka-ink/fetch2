@@ -48,5 +48,11 @@
     },
     "publishConfig": {
         "access": "public"
+    },
+    "jest": {
+        "coveragePathIgnorePatterns": [
+            "/node_modules/",
+            "/test"
+        ]
     }
 }
