@@ -108,7 +108,7 @@ describe('Fetch2', () => {
 
     test('initiate a put request', async () => {
         try {
-            return await f2.request('http://localhost:3000/put', {}, {
+            return f2.request('http://localhost:3000/put', {}, {
                 method: method.PUT
             })
         } catch (e) {
@@ -118,7 +118,7 @@ describe('Fetch2', () => {
 
     test('initiate a del request', async () => {
         try {
-            return await f2.request('http://localhost:3000/delete', {}, {
+            return f2.request('http://localhost:3000/delete', {}, {
                 method: method.DELETE
             })
         } catch (e) {
