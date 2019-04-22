@@ -4,3 +4,5 @@
 [![Coverage Status](https://coveralls.io/repos/github/misaka-ink/fetch2/badge.svg)](https://coveralls.io/github/misaka-ink/fetch2)
 
 Fetch-based front-end middleware development model
+
+English | [简体中文](./README_zh-CN.md)
