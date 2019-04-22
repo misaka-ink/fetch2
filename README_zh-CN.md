@@ -20,7 +20,6 @@ npm install @misaka.ink/fetch2
 ```
 
 ## 例子
----
 
 ##### 初始化
 
@@ -100,7 +99,7 @@ f2.post('/post', {
 .catch(err => {})
 ```
 
-##### Formdata格式
+##### FormData格式
 
 ##### 使用中间件
 
