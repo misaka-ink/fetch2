@@ -4,20 +4,21 @@ language: node_js
 node_js: v10
 install:
     - npm i
-script:
-    - npm test
-    - npm run build
-deploy:
-    provider: npm
-    email: smilingxinyi@gmail.com
-    skip_cleanup: true
-    api_key:
-        secure: "pqnr3Hqv+no6PkyF2F9AOZ05gIdC6KyqmhXmjsPbpdswcpxSs3e3kEHYvhzQIvE3aClk8aWEujotRLLCGJxEB4opZQuhEk5vgWp5GbJwWjEAe68mNtkF2kOzFUAM5hWRwpA8ibHP562mw5Y9kZWHvPC2uJXLv+BVZ1znS07R6SerbZtWh6Px226U7tyAgP/DgHUAaIIrnmaJ3e6+WkkI6KPWSnMO81WbZP2X2UTYhQL1+nw3oOx+NnthaW2AIbRzNYmNB6yFXob7dp+C1s3ZFKWxK2t9yCroeL1nX+cxZWLYqx33cfLiouF3X0qWW/NrmmyXigED3DRUwIPOg+76jYgi3R9AQ8raL5DW16BOinBaCcxyvSgYkvoELEWCCGS0KzFpqpMUEQPmvioaTe1OwtvFjW51lof8Glpi0McBVaW/HF70+YqyRqAck/8myJbliI5xX3T1qUC56F9lwYSONAuw87uZUAf519lgZNVy3KDuYytrBBVlJhpfIEVgyPQkAnmfoh/PDVUiHBVIDB379+NbcTcEpXViBLF3gHyXDEem3xs9wQKyZwpAHDAtWIXo/yg/vzSccR8cqu+bA5qNbLpoQYEeEJHHzf8BIx8k9cpafIt/SizTf6fvh4FPH24pRGjj5bta16lLFF7gq8i8SYsF2blmvMnGqyZyS9H03LI="
-    on:
-        tags: true
-        repo: "misaka-ink/fetch2"
 jobs:
     include:
         - stage: Produce Coverage
           node_js: node
           script: jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage
+        - stage: build
+          script: npm run build
+        - stage: deploy
+          script: skip
+          deploy:
+              provider: npm
+              email: smilingxinyi@gmail.com
+              skip_cleanup: true
+              api_key:
+                  secure: "pqnr3Hqv+no6PkyF2F9AOZ05gIdC6KyqmhXmjsPbpdswcpxSs3e3kEHYvhzQIvE3aClk8aWEujotRLLCGJxEB4opZQuhEk5vgWp5GbJwWjEAe68mNtkF2kOzFUAM5hWRwpA8ibHP562mw5Y9kZWHvPC2uJXLv+BVZ1znS07R6SerbZtWh6Px226U7tyAgP/DgHUAaIIrnmaJ3e6+WkkI6KPWSnMO81WbZP2X2UTYhQL1+nw3oOx+NnthaW2AIbRzNYmNB6yFXob7dp+C1s3ZFKWxK2t9yCroeL1nX+cxZWLYqx33cfLiouF3X0qWW/NrmmyXigED3DRUwIPOg+76jYgi3R9AQ8raL5DW16BOinBaCcxyvSgYkvoELEWCCGS0KzFpqpMUEQPmvioaTe1OwtvFjW51lof8Glpi0McBVaW/HF70+YqyRqAck/8myJbliI5xX3T1qUC56F9lwYSONAuw87uZUAf519lgZNVy3KDuYytrBBVlJhpfIEVgyPQkAnmfoh/PDVUiHBVIDB379+NbcTcEpXViBLF3gHyXDEem3xs9wQKyZwpAHDAtWIXo/yg/vzSccR8cqu+bA5qNbLpoQYEeEJHHzf8BIx8k9cpafIt/SizTf6fvh4FPH24pRGjj5bta16lLFF7gq8i8SYsF2blmvMnGqyZyS9H03LI="
+              on:
+                  tags: true
+                  repo: "misaka-ink/fetch2"
