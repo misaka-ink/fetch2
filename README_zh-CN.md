@@ -7,6 +7,10 @@ Fetch-based front-end middleware development model
 
 [English](./README.md) | 简体中文
 
+## 理念
+
+基于中间件模式处理请求，隔离数据处理与业务、视图的相关代码，注重数据的数据处理细节与代码复用性，为数据请求提供更大的想象空间.
+
 ## 特性
 
 - 基于单例模式初始化并配置请求库，发起Fetch请求
