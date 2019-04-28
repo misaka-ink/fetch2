@@ -30,44 +30,47 @@ const f2 = fetch2.getInstance()
 
 // 默认参数
 
-/*
-    const defaultOptions = {
-        // 默认请求方法
-        // *GET、POST、PATCH、PUT、DELETE 
-        method: method.GET,
-        
-        // 浏览器发送包含凭据的请求  
-        // include, *same-origin, omit
-        credentials: 'same-origin',
-        
-        // manual, *follow*, error
-        redirect: 'follow',
-        
-        // 请求的模式
-        // same-origin, no-cors, cors, navigate
-        mode: 'cors',
-        
-        // 请求的来源
-        // *client, no-referrer, URL
-        referrer: 'no-referrer',
-        
-        // 缓存
-        // *default, no-cache, reload, force-cache, only-if-cached
-        cache: 'no-cache',
-        
-        // 超时，不需要超时可设置为0
-        timeout: 3000,
-        
-        // 重试次数，0不重试
-        count: 0,
-        
-        // 默认参数，如果为函数会在请求前被执行
-        params: undefined,
-        
-        // Path前缀
-        prefix: undefined
-    }
- */
+const defaultOptions = {
+    // 默认请求方法
+    // *GET、POST、PATCH、PUT、DELETE 
+    method: method.GET,
+    
+    // 浏览器发送包含凭据的请求  
+    // include, *same-origin, omit
+    credentials: 'same-origin',
+    
+    // manual, *follow*, error
+    redirect: 'follow',
+    
+    // 请求的模式
+    // same-origin, no-cors, cors, navigate
+    mode: 'cors',
+    
+    // 请求的来源
+    // *client, no-referrer, URL
+    referrer: 'no-referrer',
+    
+    // 缓存
+    // *default, no-cache, reload, force-cache, only-if-cached
+    cache: 'no-cache',
+    
+    // 超时，不需要超时可设置为0
+    timeout: 3000,
+    
+    // 重试次数，0不重试
+    count: 0,
+    
+    // 默认参数，如果为函数会在请求前被执行
+    params: undefined,
+    
+    // Path前缀
+    prefix: undefined,
+    
+    // 中止请求
+    controller: new AbortController()
+    
+    
+}
 
 ```
 
@@ -99,14 +102,25 @@ f2.post('/post', {
 .catch(err => {})
 ```
 
-##### FormData格式
+##### 取消请求
+
+```javascript
+async function controllerFunc() {
+    const controller = new AbortController()
+    const result = await f2.request('http://localhost:3000/timeout', null, {
+        controller
+    })
+    // 触发中止
+    controller.abort()
+}
+```
 
 ##### 使用中间件
 
 ```javascript
 import fetch2, {method} from '@misaka.ink/fetch2'
-import middle from 'middleware'
+import middleware from 'middleware'
 const f2 = fetch2.getInstance()
 
-f2.use(middle)
+f2.use(middleware)
 ```
