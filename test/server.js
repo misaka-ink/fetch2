@@ -22,7 +22,7 @@ app.use(bodyParser.json({limit: '50mb'}))
 app.use(bodyParser.urlencoded({extended: true}))
 
 app.get('/get', (req, res) => {
-    if (Object.keys(req.query).length) {
+    if (Object.keys(req.query).length > 0) {
         res.send(req.query)
     } else {
         res.json({

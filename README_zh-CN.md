@@ -20,7 +20,7 @@ Fetch-based front-end middleware development model
 ## 安装
 
 ```bash
-npm install @misaka.ink/fetch2
+npm install --save @misaka.ink/fetch2
 ```
 
 ## 例子

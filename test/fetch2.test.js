@@ -29,8 +29,10 @@ afterAll(async done => {
 describe('Fetch2', () => {
     test('make a get request should return `Hello World!`', async () => {
         try {
-            const result = await f2.request('http://localhost:3000/get')
-            return expect(!!result.msg).toEqual('Hello World!')
+            const result = await f2.request('http://localhost:3000/get', {
+                msg: 'Hello World!'
+            })
+            return expect(result.msg).toEqual('Hello World!')
         } catch (e) {
             throw e
         }
