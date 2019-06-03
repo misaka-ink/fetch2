@@ -7,8 +7,7 @@ const fs = require('fs')
 
 const express = require('express')
 const app = express()
-const multer = require('multer')
-const upload = multer({dest: 'test/temp/', limits: {fieldSize: 25 * 1024 * 1024}})
+const multiparty = require('multiparty');
 
 const bodyParser = require('body-parser')
 
@@ -55,11 +54,24 @@ app.post('/post', (req, res) => {
     }
 })
 
-app.post('/upload', upload.single('avatar'), (req, res) => {
-    fs.writeFile(`./test/temp/upload_${Date.now()}.jpg`, req.body.file, {encoding: 'binary'}, err => {
-        if (!err) res.status(200).end()
-        else console.log(err)
-    })
+app.post('/upload', (req, res) => {
+    const form = new multiparty.Form()
+    form.parse(req, function(err, fields, files) {
+        Promise.all(
+            files.file.map((file, index) => {
+                new Promise((resolve, reject) => {
+                    fs.readFile(file.path, (err, data) => {
+                        if (err) reject(err)
+                        fs.writeFile(`./test/temp/upload_${file.originalFilename}`, data, 'binary', err => {
+                            !err ? resolve() : reject(err)
+                        })
+                    })
+                })
+            })
+        )
+            .then(result => res.status(200).end())
+            .catch(err => res.status(500).end())
+    });
 })
 
 app.put('/put', (req, res) => {
