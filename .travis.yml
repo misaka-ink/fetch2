@@ -16,3 +16,4 @@ deploy:
     on:
         tags: true
         repo: "misaka-ink/fetch2"
+        branch: master
