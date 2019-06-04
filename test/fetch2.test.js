@@ -27,16 +27,18 @@ afterAll(async done => {
 })
 
 describe('Fetch2', () => {
-    test('initiate a get request', async () => {
+    test('make a get request should return `Hello World!`', async () => {
         try {
-            const result = await f2.request('http://localhost:3000/get')
-            return expect(!!result.t).toBe(true)
+            const result = await f2.request('http://localhost:3000/get', {
+                msg: 'Hello World!'
+            })
+            return expect(result.msg).toEqual('Hello World!')
         } catch (e) {
             throw e
         }
     })
 
-    test('get request return timeout', async () => {
+    test('make a request should return `request timeout` error', async () => {
         try {
             const result = await f2.request('http://localhost:3000/timeout')
         } catch (e) {
@@ -44,7 +46,7 @@ describe('Fetch2', () => {
         }
     })
 
-    test('abort request after 2 seconds', async () => {
+    test('should abort request after 2 seconds', async () => {
         try {
             const controller = new AbortController()
             setTimeout(() => {
@@ -58,7 +60,7 @@ describe('Fetch2', () => {
         }
     })
 
-    test('initiate a get request with parameters', async () => {
+    test('make a get request with parameters should return passing msg', async () => {
         try {
             const test = {
                 msg: 'Hello World 233!'
@@ -71,12 +73,13 @@ describe('Fetch2', () => {
         }
     })
 
-    test('initiate a post request with parameters', async () => {
+    test('make a post request should return reverse msg', async () => {
         const test = {
             msg: 'Hi'
         }
 
-        const result = await f2.request('http://localhost:3000/post', test, {
+        const result = await f2.request('http://localhost:3000/post', {}, {
+            body: test,
             method: method.POST
         })
 
@@ -85,14 +88,16 @@ describe('Fetch2', () => {
         })
     })
 
-    test('initiate a post request with a file', async () => {
-        const img = await fs.readFileSync('./test/upload.png', {encoding: 'binary'})
+    test('make a post request with a image', async () => {
+        const img = fs.readFileSync('./test/upload.png')
 
         try {
             const result = await f2.request('http://localhost:3000/upload', {
-                file: img,
                 name: 'haha'
             }, {
+                body: {
+                    file: new File([img], 'i.png')
+                },
                 method: method.POST,
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -106,9 +111,34 @@ describe('Fetch2', () => {
         }
     })
 
-    test('initiate a put request', async () => {
+    test('make a post request with multipart images', async () => {
+        const img = fs.readFileSync('./test/upload.png')
+        const file1 = new File([img], 'i1.png')
+        const file2 = new File([img], 'i2.png')
+
         try {
-            return await f2.request('http://localhost:3000/put', {}, {
+            const result = await f2.request('http://localhost:3000/upload', {
+                name: 'haha'
+            }, {
+                body: {
+                    'file[]': [file1, file2]
+                },
+                method: method.POST,
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                timeout: 5000
+            })
+
+            return result
+        } catch (e) {
+            throw e
+        }
+    })
+
+    test('make a put request', async () => {
+        try {
+            return f2.request('http://localhost:3000/put', {}, {
                 method: method.PUT
             })
         } catch (e) {
@@ -116,9 +146,9 @@ describe('Fetch2', () => {
         }
     })
 
-    test('initiate a del request', async () => {
+    test('make a del request', async () => {
         try {
-            return await f2.request('http://localhost:3000/delete', {}, {
+            return f2.request('http://localhost:3000/delete', {}, {
                 method: method.DELETE
             })
         } catch (e) {
@@ -126,7 +156,7 @@ describe('Fetch2', () => {
         }
     })
 
-    test('retry 2 requests', async () => {
+    test('retry a request after the 404 error (two request', async () => {
         const count = 2
         try {
             const result =  await f2.request('http://localhost:3000/404', {}, {

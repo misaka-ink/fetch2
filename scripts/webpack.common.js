@@ -13,5 +13,8 @@ module.exports = {
                 loader: 'babel-loader'
             }
         ]
+    },
+    externals: {
+        'whatwg-fetch': 'whatwg-fetch'
     }
 }
