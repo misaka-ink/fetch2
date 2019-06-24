@@ -156,6 +156,11 @@ describe('Fetch2', () => {
         }
     })
 
+    test('apply default parameters', async () => {
+        const result = await f2.request('http://localhost:3000/get')
+        return expect(!!result.t).toBe(true)
+    })
+
     test('retry a request after the 404 error (two request', async () => {
         const count = 2
         try {
@@ -163,13 +168,18 @@ describe('Fetch2', () => {
                 count
             })
         }
-        catch (e) {
-            return expect(e.message.split('|').length).toEqual(count)
+        catch (err) {
+            return expect(err.info.length === count).toBe(true)
         }
     })
 
-    test('apply default parameters', async () => {
-        const result = await f2.request('http://localhost:3000/get')
-        return expect(!!result.t).toBe(true)
+    test('error feedback', async () => {
+        try {
+            const result = await f2.request('http://localhost:3000/error')
+            return false
+        }
+        catch (err) {
+            return expect(err instanceof Error).toBe(true)
+        }
     })
 })
