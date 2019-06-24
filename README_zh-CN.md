@@ -71,8 +71,10 @@ const defaultOptions = {
     prefix: undefined,
     
     // 中止请求
-    controller: new AbortController()
+    controller: new AbortController(),
     
+    // BODY
+    body: null
     
 }
 
@@ -96,14 +98,17 @@ f2.request('/get', {p1: 10, p2: [1, 2, 3]})
 import fetch2, {method} from '@misaka.ink/fetch2'
 const f2 = fetch2.getInstance()
 
-f2.post('/post', {
-    p1: 10, 
-    p2: [1, 2, 3]
-}, {
-    method: method.POST
-})
-.then(result => {})
-.catch(err => {})
+// async func
+
+async function post () {
+    const result = await f2.post('/post', {}, {
+        method: method.POST,
+        body: {
+            p1: 10, 
+            p2: [1, 2, 3]
+        }
+    })
+}
 ```
 
 ##### 取消请求

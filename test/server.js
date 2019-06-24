@@ -5,7 +5,7 @@
 
 const fs = require('fs')
 
-fs.mkdirSync('test/temp')
+!fs.existsSync('test/temp') && fs.mkdirSync('test/temp')
 
 const express = require('express')
 const app = express()
