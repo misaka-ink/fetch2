@@ -5,9 +5,11 @@
 
 const fs = require('fs')
 
+fs.mkdirSync('test/temp')
+
 const express = require('express')
 const app = express()
-const multiparty = require('multiparty');
+const multiparty = require('multiparty')
 
 const bodyParser = require('body-parser')
 
@@ -56,7 +58,7 @@ app.post('/post', (req, res) => {
 
 app.post('/upload', (req, res) => {
     const form = new multiparty.Form()
-    form.parse(req, function(err, fields, files) {
+    form.parse(req, function (err, fields, files) {
         Promise.all(
             files.file.map((file, index) => {
                 new Promise((resolve, reject) => {
@@ -71,7 +73,7 @@ app.post('/upload', (req, res) => {
         )
             .then(result => res.status(200).end())
             .catch(err => res.status(500).end())
-    });
+    })
 })
 
 app.put('/put', (req, res) => {
