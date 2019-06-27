@@ -14,7 +14,7 @@ Fetch-based front-end middleware development model
 ## 特性
 
 - 基于单例模式初始化并配置请求库，发起Fetch请求
-- 支持取消、重试、超时、默认参数、前缀
+- 支持取消、自动重试、超时、默认参数、前缀
 - 支持中间件，借用了`koa-compose`的`compose`代码
 
 ## 安装
@@ -22,6 +22,13 @@ Fetch-based front-end middleware development model
 ```bash
 npm install --save @misaka.ink/fetch2
 ```
+
+## 错误信息
+
+- name: 错误名称 - **FetchError**
+- message: 错误消息 - **{error message}**
+- stack: 错误堆栈 - **{stack}**
+- info: 保留信息 - **reservation infomation**
 
 ## 例子
 
@@ -61,7 +68,7 @@ const defaultOptions = {
     // 超时，不需要超时可设置为0
     timeout: 3000,
     
-    // 重试次数，0不重试
+    // 失败重试次数，0不重试
     count: 0,
     
     // 默认参数，如果为函数会在请求前被执行
@@ -86,7 +93,7 @@ const defaultOptions = {
 import fetch2, {method} from '@misaka.ink/fetch2'
 const f2 = fetch2.getInstance()
 
-f2.request('/get', {p1: 10, p2: [1, 2, 3]})
+f2.request(url, params)
 // -> /get?p1=10&p2="%5B1%2C2%2C3%5D"
 .then(result => {})
 .catch(err => {})
@@ -100,8 +107,8 @@ const f2 = fetch2.getInstance()
 
 // async func
 
-async function post () {
-    const result = await f2.post('/post', {}, {
+async function func() {
+    const result = await f2.post(url, null, {
         method: method.POST,
         body: {
             p1: 10, 
@@ -114,9 +121,10 @@ async function post () {
 ##### 取消请求
 
 ```javascript
-async function controllerFunc() {
+async function func() {
     const controller = new AbortController()
-    const result = await f2.request('http://localhost:3000/timeout', null, {
+    const result = await f2.request(url, null, {
+        // 控制器
         controller
     })
     // 触发中止
@@ -132,4 +140,15 @@ import middleware from 'middleware'
 const f2 = fetch2.getInstance()
 
 f2.use(middleware)
+```
+
+##### 失败时重复请求
+
+```javascript
+async function func() {
+    const result = await f2.request(url, null, {
+        // 失败时重复{x}次发起发次请求
+        count: x
+    })
+}
 ```
