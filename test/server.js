@@ -96,6 +96,14 @@ app.delete('/delete', (req, res) => {
     }
 })
 
+app.get('/zero', (req, res) => {
+    if (+req.query.zero === 0) {
+        res.json({
+            msg: 'ok'
+        })
+    }
+})
+
 module.exports = app
 
 if (!module.parent) {

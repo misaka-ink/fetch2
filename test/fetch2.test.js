@@ -182,4 +182,16 @@ describe('Fetch2', () => {
             return expect(err instanceof Error).toBe(true)
         }
     })
+
+    test('make a request of GET method with number zero params', async () => {
+        try {
+            const result = await f2.request('http://localhost:3000/zero', {
+                zero: 0
+            })
+            expect(result.msg).toBe('ok')
+        }
+        catch (err) {
+            throw err
+        }
+    })
 })
