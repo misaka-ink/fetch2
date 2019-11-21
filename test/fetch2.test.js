@@ -194,4 +194,16 @@ describe('Fetch2', () => {
             throw err
         }
     })
+
+    test('get 500 error message', async () => {
+        try {
+            const result = await f2.request('http://localhost:3000/500')
+        }
+        catch (err) {
+            expect(err.info).toHaveLength(1)
+            const errorInfoStr = err.info[0].info
+            const errorInfoObj = JSON.parse(errorInfoStr)
+            expect(errorInfoObj.error).toBe('something blew up')
+        }
+    })
 })
