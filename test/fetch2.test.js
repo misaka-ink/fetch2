@@ -161,7 +161,7 @@ describe('Fetch2', () => {
         return expect(!!result.t).toBe(true)
     })
 
-    test('retry a request after the 404 error (two request', async () => {
+    test('retry a request after the 404 error (two requests', async () => {
         const count = 2
         try {
             const result =  await f2.request('http://localhost:3000/404', {}, {
@@ -195,13 +195,16 @@ describe('Fetch2', () => {
         }
     })
 
-    test('get 500 error message', async () => {
+    test('should return 500 status and callback message', async () => {
         try {
             const result = await f2.request('http://localhost:3000/500')
         }
         catch (err) {
             expect(err.info).toHaveLength(1)
-            const errorInfoStr = err.info[0].info
+            const f2e = err.info[0]
+            expect(f2e.response).toBeInstanceOf(Response)
+            expect(f2e.response.status).toBe(500)
+            const errorInfoStr = f2e.info
             const errorInfoObj = JSON.parse(errorInfoStr)
             expect(errorInfoObj.error).toBe('something blew up')
         }

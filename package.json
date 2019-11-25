@@ -1,6 +1,6 @@
 {
     "name": "@misaka.ink/fetch2",
-    "version": "1.3.8",
+    "version": "1.3.9",
     "description": "Fetch-based front-end middleware development model",
     "main": "dist/fetch2.js",
     "scripts": {
