@@ -14,7 +14,7 @@ const f2 = fetch2.getInstance({
     }
 })
 
-let server, server80
+let server
 
 beforeAll(async done => {
     server = await app.listen(3000)
