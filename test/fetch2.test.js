@@ -38,6 +38,21 @@ describe('Fetch2', () => {
         }
     })
 
+    test('make a relative path request should return `Hello world`', async () => {
+        jsdom.reconfigure({
+            url: "http://localhost:3000"
+        });
+        try {
+            const result = await f2.request('/get', {
+                msg: 'Hello World!'
+            })
+            return expect(result.msg).toEqual('Hello World!')
+        }
+        catch (e) {
+            console.log(e)
+        }
+    })
+
     test('make a request should return `request timeout` error', async () => {
         try {
             const result = await f2.request('http://localhost:3000/timeout')

@@ -1,6 +1,6 @@
 {
     "name": "@misaka.ink/fetch2",
-    "version": "1.3.10",
+    "version": "1.4.0",
     "description": "Fetch-based front-end middleware development model",
     "main": "dist/fetch2.js",
     "scripts": {
@@ -39,6 +39,8 @@
         "express": "^4.17.1",
         "html-webpack-plugin": "^3.2.0",
         "jest": "^24.9.0",
+        "jest-environment-jsdom": "^24.9.0",
+        "jest-environment-jsdom-global": "^1.2.0",
         "multiparty": "^4.2.1",
         "terser-webpack-plugin": "^1.4.1",
         "webpack": "^4.41.2",
@@ -53,6 +55,7 @@
         "coveragePathIgnorePatterns": [
             "/node_modules/",
             "/test/"
-        ]
+        ],
+        "testEnvironment": "jest-environment-jsdom-global"
     }
 }
