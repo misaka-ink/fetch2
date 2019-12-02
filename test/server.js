@@ -108,18 +108,7 @@ app.get('/500', (req, res) => {
     res.status(500).send({ error: 'something blew up' })
 })
 
-
-
-const app80 = new express()
-
-app80.get('/get', (req, res) => {
-    res.send(req.query)
-})
-
-module.exports = {
-    app,
-    app80
-}
+module.exports = app
 
 if (!module.parent) {
     app.listen(3000)

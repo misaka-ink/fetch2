@@ -5,7 +5,7 @@
 
 const fs = require('fs')
 
-import {app, app80} from './server'
+import app from './server'
 import fetch2, {method} from '../lib'
 
 const f2 = fetch2.getInstance({
@@ -18,13 +18,11 @@ let server, server80
 
 beforeAll(async done => {
     server = await app.listen(3000)
-    server80 = await app80.listen(80)
     done()
 })
 
 afterAll(async done => {
     await server.close()
-    await server80.close()
     done()
 })
 
@@ -41,10 +39,18 @@ describe('Fetch2', () => {
     })
 
     test('make a relative path request should return `Hello world`', async () => {
-        const result = await f2.request('/get', {
-            msg: 'Hello World!'
-        })
-        return expect(result.msg).toEqual('Hello World!')
+        jsdom.reconfigure({
+            url: "http://localhost:3000"
+        });
+        try {
+            const result = await f2.request('/get', {
+                msg: 'Hello World!'
+            })
+            return expect(result.msg).toEqual('Hello World!')
+        }
+        catch (e) {
+            console.log(e)
+        }
     })
 
     test('make a request should return `request timeout` error', async () => {
