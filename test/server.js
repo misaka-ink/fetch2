@@ -104,6 +104,10 @@ app.get('/zero', (req, res) => {
     }
 })
 
+app.get('/200', (req, res) => {
+    res.status(200).end()
+})
+
 app.get('/500', (req, res) => {
     res.status(500).send({ error: 'something blew up' })
 })

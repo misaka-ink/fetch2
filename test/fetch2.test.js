@@ -224,4 +224,11 @@ describe('Fetch2', () => {
             expect(errorInfoObj.error).toBe('something blew up')
         }
     })
+
+    test('apply prefix configuration', async () => {
+        const result = await f2.request('http://localhost:3000/200', {}, {
+            prefix: '/api'
+        })
+        except(result).toBe('')
+    })
 })
