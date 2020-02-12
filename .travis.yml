@@ -3,16 +3,17 @@ dist: trusty
 language: node_js
 node_js: v10
 install:
-    - npm i
+- npm i
 script:
-    - npm test
-    - npm run build
+- npm test
+- npm run build
 deploy:
-    provider: npm
-    email: smilingxinyi@gmail.com
-    skip_cleanup: true
-    api_key: beed6a27-56ea-4427-939b-1e0312c48613
-    on:
-        tags: true
-        repo: "misaka-ink/fetch2"
-        branch: master
+  provider: npm
+  email: smilingxinyi@gmail.com
+  skip_cleanup: true
+  api_key:
+      secure: APnKeei9VnR4n8nYCSPv1xiNxRKXuBet0WsHypQ9YOS65dgd5qV9Oky1jkDi3WeAWqptjlV8v8+Q3NK1ZlHaQpSlNgkth8UAR1IfvUYUWo+bp/u9HPGBmKNlms2qmZZS28g4bbueuSv13MBtPLzts4ITT9wvttio7UZic2siG2SV6v+A+rxlC3G/4yhyD4n9FLowOfmpQahkt0gu9fbFUpjOvXU3tv+e8GYRcJhcCkDjGMeTwMBWVW1NbgY+O3VRax2M8g2RE+eG/hs/+RD6UGy1X+kqmWcUFQ9KSGmzKrf8x1/3jEeclKeLl8FhV7bUzPc1DPrxu/mdJyoFloJw7swarDDNbz7/nLns5yiKxGuoA7A32sUf7TljkSQNkppmhifGMbY4DbSq3YJGzK9QjooUCcZ6fCxbfLL7GCn7pzAIXG/PHCE/Y4LyTlNMkq4vjDIxkcXLwaYpfVcpvAj8tM8wKfWeZ63WTRunqB7MUnHy3GDIUil9VOXIAkY9fIkvFLobwQIzM7259+y4C980HGrBJxU6LgrDpOsWM8oWYACanfTN49QGt1XEUYcJmEeTIsuCbaXq4NY56AWqDsStfUxZyAu0EGjaB0pJ2mDair58AYGwlhLlvqR7DojD1DKO1OBixI8gOWr6YRGRT7J/WNrFenAhjcRZVlgqFFJZB/8=
+  on:
+    tags: true
+    repo: misaka-ink/fetch2
+    branch: master
