@@ -229,6 +229,6 @@ describe('Fetch2', () => {
         const result = await f2.request('http://localhost:3000/200', {}, {
             prefix: '/api'
         })
-        except(result).toBe('')
+        expect(result).toBe('')
     })
 })
