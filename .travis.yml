@@ -11,8 +11,7 @@ deploy:
     provider: npm
     email: smilingxinyi@gmail.com
     skip_cleanup: true
-    api_key:
-        secure: "57b07839-0e8e-4ee0-a59c-57ed7ef6aeae"
+    api_key: beed6a27-56ea-4427-939b-1e0312c48613
     on:
         tags: true
         repo: "misaka-ink/fetch2"
