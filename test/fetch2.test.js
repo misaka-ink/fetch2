@@ -231,4 +231,16 @@ describe('Fetch2', () => {
         })
         expect(result).toBe('')
     })
+
+    test('should return file blob with specified method', async () => {
+        try {
+            const result = await f2.request('http://localhost:3000/file', {}, {
+                acceptFuncName: 'blob'
+            });
+            expect(new Blob([result]).size).toBeGreaterThan(0)
+        }
+        catch (e) {
+            throw e;
+        }
+    })
 })
