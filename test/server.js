@@ -4,6 +4,7 @@
  */
 
 const fs = require('fs')
+const path = require('path')
 
 !fs.existsSync('test/temp') && fs.mkdirSync('test/temp')
 
@@ -110,6 +111,16 @@ app.get('/200', (req, res) => {
 
 app.get('/500', (req, res) => {
     res.status(500).send({ error: 'something blew up' })
+})
+
+app.get('/file', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'upload.png'), {
+        headers: {
+            'content-type': 'application/octet-stream',
+            'x-timestamp': Date.now(),
+            'x-sent': true
+        }
+    })
 })
 
 module.exports = app
